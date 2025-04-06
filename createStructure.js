@@ -12,36 +12,40 @@ import { askInput } from "./readline.js";
 
 export const createStructure = (projectName, server, database) => {
   // Check if directory exists, if not create it
-  if (!fs.existsSync(projectName)) {
-    fs.mkdirSync(projectName);
-    console.log(chalk.green.bold(`Created project folder: ${projectName}`));
-  } else {
-    console.log(
-      chalk.yellow(
-        `Folder '${projectName}' already exists. Please choose a different name.`
-      )
-    );
-    return;
-  }
-
-  // Create server folder and files
-  const mongoURI = askInput(chalk.blue.bold("Enter your MongoDB URI: "));
-  fs.mkdirSync(`${projectName}/src`);
-  fs.mkdirSync(`${projectName}/src/db`);
-  fs.mkdirSync(`${projectName}/src/routes`);
-  fs.mkdirSync(`${projectName}/src/controllers`);
-  fs.mkdirSync(`${projectName}/src/models`);
-  fs.mkdirSync(`${projectName}/src/middleware`);
-  fs.mkdirSync(`${projectName}/src/utils`);
-  fs.mkdirSync(`${projectName}/src/tests`);
-  fs.mkdirSync(`${projectName}/src/docs`);
+  const createFolder = () => {
+    if (!fs.existsSync(projectName)) {
+      fs.mkdirSync(projectName);
+      console.log(chalk.green.bold(`Created project folder: ${projectName}`));
+    } else {
+      console.log(
+        chalk.yellow(
+          `Folder '${projectName}' already exists. Please choose a different name.`
+        )
+      );
+      return;
+    }
+    // Create server folder and files
+    fs.mkdirSync(`${projectName}/src`);
+    fs.mkdirSync(`${projectName}/src/db`);
+    fs.mkdirSync(`${projectName}/src/routes`);
+    fs.mkdirSync(`${projectName}/src/controllers`);
+    fs.mkdirSync(`${projectName}/src/models`);
+    fs.mkdirSync(`${projectName}/src/middleware`);
+    fs.mkdirSync(`${projectName}/src/utils`);
+    fs.mkdirSync(`${projectName}/src/tests`);
+    fs.mkdirSync(`${projectName}/src/docs`);
+  };
 
   switch (server) {
     case "ExpressJS":
-      fs.writeFileSync(`${projectName}/index.js`, expressIndexJsContent);
-      fs.writeFileSync(`${projectName}/src/app.js`, expressAppJsContent);
       switch (database) {
         case "MongoDB":
+          createFolder();
+          fs.writeFileSync(`${projectName}/index.js`, expressIndexJsContent);
+          fs.writeFileSync(`${projectName}/src/app.js`, expressAppJsContent);
+          const mongoURI = askInput(
+            chalk.blue.bold("Enter your MongoDB URI: ")
+          );
           if (mongoURI) {
             fs.writeFileSync(
               `${projectName}/.env`,
@@ -56,19 +60,38 @@ export const createStructure = (projectName, server, database) => {
             `${projectName}/src/db/connectMongoDB.js`,
             expressConnectMongoDBContent
           );
-          fs.writeFileSync(`${projectName}/package.json`, expressPackageContent);
+          fs.writeFileSync(
+            `${projectName}/package.json`,
+            expressPackageContent
+          );
           break;
         case "PostgreSQL":
+          console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
         case "MySQL":
+          console.log(chalk.yellow.bold("MySQL is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
       }
       break;
     case "NodeJS":
-      fs.writeFileSync(`${projectName}/index.js`, nodeIndexJsContent);
-      fs.writeFileSync(`${projectName}/src/app.js`, nodeAppJsContent);
       switch (database) {
         case "MongoDB":
+          createFolder();
+          fs.writeFileSync(`${projectName}/index.js`, nodeIndexJsContent);
+          fs.writeFileSync(`${projectName}/src/app.js`, nodeAppJsContent);
+          const mongoURI = askInput(
+            chalk.blue.bold("Enter your MongoDB URI: ")
+          );
           if (mongoURI) {
             fs.writeFileSync(
               `${projectName}/.env`,
@@ -86,28 +109,76 @@ export const createStructure = (projectName, server, database) => {
           fs.writeFileSync(`${projectName}/package.json`, nodePackageContent);
           break;
         case "PostgreSQL":
+          console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
         case "MySQL":
+          console.log(chalk.yellow.bold("MySQL is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
       }
       break;
     case "Django":
       switch (database) {
         case "MongoDB":
+          console.log(chalk.yellow.bold("MongoDB is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
         case "PostgreSQL":
+          console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
         case "MySQL":
+          console.log(chalk.yellow.bold("MySQL is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
       }
       break;
     case "Flask":
       switch (database) {
         case "MongoDB":
+          console.log(chalk.yellow.bold("MongoDB is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
         case "PostgreSQL":
+          console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
         case "MySQL":
+          console.log(chalk.yellow.bold("MySQL is not supported yet."));
+          console.log(
+            chalk.blue(
+              "You can contribute to this project! - https://github.com/git21221/zippi"
+            )
+          );
           break;
       }
       break;

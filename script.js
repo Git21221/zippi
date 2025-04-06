@@ -22,7 +22,7 @@ const main = async () => {
   
   // fs.writeFileSync(`${projectName}/${projectName}.js`, `console.log("Hello World");`);
   createStructure(projectName, selectedServer, selectedDatabase);
-  console.log(chalk.green.bold(`Created project structure for ${selectedServer} with ${selectedDatabase}`));
+  // console.log(chalk.green.bold(`Created project structure for ${selectedServer} with ${selectedDatabase}`));
   console.log("Thank you for using zippi!");
 };
 
