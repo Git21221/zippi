@@ -64,6 +64,11 @@ export const createStructure = (projectName, server, database) => {
             `${projectName}/package.json`,
             expressPackageContent
           );
+          console.log(chalk.green.bold("Project created successfully!"));
+          console.log(chalk.blue.bold("Try these commands:"));
+          console.log("cd " + projectName);
+          console.log("npm install");
+          console.log("npm start");
           break;
         case "PostgreSQL":
           console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
@@ -107,6 +112,11 @@ export const createStructure = (projectName, server, database) => {
             nodeConnectMongoDBContent
           );
           fs.writeFileSync(`${projectName}/package.json`, nodePackageContent);
+          console.log(chalk.green.bold("Project created successfully!"));
+          console.log(chalk.blue.bold("Try these commands:"));
+          console.log("cd " + projectName);
+          console.log("npm install");
+          console.log("npm start");
           break;
         case "PostgreSQL":
           console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
