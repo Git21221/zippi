@@ -9,6 +9,8 @@ import { packageContent as nodePackageContent } from "./createFilesAndFolder/nod
 import fs from "fs";
 import chalk from "chalk";
 import { askInput } from "./readline.js";
+import { nodeGitIgnore } from "./createFilesAndFolder/nodejs/gitignore.js";
+import { DJANGO, EXPRESS_JS, FLASK, GO, MONGO_DB, MYSQL, NODE_JS, POSTGRE_SQL } from "./constant.js";
 
 export const createStructure = (projectName, server, database) => {
   // Check if directory exists, if not create it
@@ -37,12 +39,16 @@ export const createStructure = (projectName, server, database) => {
   };
 
   switch (server) {
-    case "ExpressJS":
+    case EXPRESS_JS:
       switch (database) {
-        case "MongoDB":
+        case MONGO_DB:
+          //first create the folder and files
           createFolder();
+          // then create the files inside the folder
+          fs.writeFileSync(`${projectName}/.gitignore`, nodeGitIgnore);
           fs.writeFileSync(`${projectName}/index.js`, expressIndexJsContent);
           fs.writeFileSync(`${projectName}/src/app.js`, expressAppJsContent);
+          // ask for the MongoDB URI and create the .env file
           const mongoURI = askInput(
             chalk.blue.bold("Enter your MongoDB URI: ")
           );
@@ -56,21 +62,23 @@ export const createStructure = (projectName, server, database) => {
               `${projectName}/.env`,
               `PORT=8000\nMONGODB_URI=mongodb://localhost:27017`
             );
+          // create the connectMongoDB.js file
           fs.writeFileSync(
             `${projectName}/src/db/connectMongoDB.js`,
             expressConnectMongoDBContent
           );
+          // create package.json file
           fs.writeFileSync(
             `${projectName}/package.json`,
             expressPackageContent
           );
-          console.log(chalk.green.bold("Project created successfully!"));
+          console.log(chalk.green.bold("Project created successfully!\n"));
           console.log(chalk.blue.bold("Try these commands:"));
           console.log("cd " + projectName);
           console.log("npm install");
           console.log("npm start");
           break;
-        case "PostgreSQL":
+        case POSTGRE_SQL:
           console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
           console.log(
             chalk.blue(
@@ -78,7 +86,7 @@ export const createStructure = (projectName, server, database) => {
             )
           );
           break;
-        case "MySQL":
+        case MYSQL:
           console.log(chalk.yellow.bold("MySQL is not supported yet."));
           console.log(
             chalk.blue(
@@ -88,9 +96,9 @@ export const createStructure = (projectName, server, database) => {
           break;
       }
       break;
-    case "NodeJS":
+    case NODE_JS:
       switch (database) {
-        case "MongoDB":
+        case MONGO_DB:
           createFolder();
           fs.writeFileSync(`${projectName}/index.js`, nodeIndexJsContent);
           fs.writeFileSync(`${projectName}/src/app.js`, nodeAppJsContent);
@@ -118,7 +126,7 @@ export const createStructure = (projectName, server, database) => {
           console.log("npm install");
           console.log("npm start");
           break;
-        case "PostgreSQL":
+        case POSTGRE_SQL:
           console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
           console.log(
             chalk.blue(
@@ -126,7 +134,7 @@ export const createStructure = (projectName, server, database) => {
             )
           );
           break;
-        case "MySQL":
+        case MYSQL:
           console.log(chalk.yellow.bold("MySQL is not supported yet."));
           console.log(
             chalk.blue(
@@ -136,9 +144,9 @@ export const createStructure = (projectName, server, database) => {
           break;
       }
       break;
-    case "Django":
+    case DJANGO:
       switch (database) {
-        case "MongoDB":
+        case MONGO_DB:
           console.log(chalk.yellow.bold("MongoDB is not supported yet."));
           console.log(
             chalk.blue(
@@ -146,7 +154,7 @@ export const createStructure = (projectName, server, database) => {
             )
           );
           break;
-        case "PostgreSQL":
+        case POSTGRE_SQL:
           console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
           console.log(
             chalk.blue(
@@ -154,7 +162,7 @@ export const createStructure = (projectName, server, database) => {
             )
           );
           break;
-        case "MySQL":
+        case MYSQL:
           console.log(chalk.yellow.bold("MySQL is not supported yet."));
           console.log(
             chalk.blue(
@@ -164,9 +172,9 @@ export const createStructure = (projectName, server, database) => {
           break;
       }
       break;
-    case "Flask":
+    case GO:
       switch (database) {
-        case "MongoDB":
+        case MONGO_DB:
           console.log(chalk.yellow.bold("MongoDB is not supported yet."));
           console.log(
             chalk.blue(
@@ -174,7 +182,7 @@ export const createStructure = (projectName, server, database) => {
             )
           );
           break;
-        case "PostgreSQL":
+        case POSTGRE_SQL:
           console.log(chalk.yellow.bold("PostgreSQL is not supported yet."));
           console.log(
             chalk.blue(
@@ -182,7 +190,7 @@ export const createStructure = (projectName, server, database) => {
             )
           );
           break;
-        case "MySQL":
+        case MYSQL:
           console.log(chalk.yellow.bold("MySQL is not supported yet."));
           console.log(
             chalk.blue(
